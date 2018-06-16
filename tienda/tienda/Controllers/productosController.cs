@@ -128,5 +128,39 @@ namespace tienda.Controllers
             }
             base.Dispose(disposing);
         }
+
+        // GET: productos/Edit/5
+        public ActionResult VentasProductos(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            productos productos = db.productos.Find(id);
+            if (productos == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.id_provedor = new SelectList(db.provedores, "id_provedor", "nombre_provedor", productos.id_provedor);
+            return View(productos);
+        }
+
+        // POST: productos/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult VentasProductos([Bind(Include = "id_produto,nombre_producto,precio,producto_cantidad,descripcion_producto,id_provedor")] productos productos)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(productos).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.id_provedor = new SelectList(db.provedores, "id_provedor", "nombre_provedor", productos.id_provedor);
+            return View(productos);
+        }
+
     }
 }
