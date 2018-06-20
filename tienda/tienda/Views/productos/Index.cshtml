@@ -47,9 +47,10 @@
             @Html.DisplayFor(modelItem => item.provedores.nombre_provedor)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_produto }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_produto }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_produto })
+            @Html.ActionLink("Edit", "Edit", new { id = item.id_produto }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id_produto }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id_produto }) |
+            @Html.ActionLink("Ventas", "VentasProductos", new { id = item.id_produto })
         </td>
     </tr>
 }

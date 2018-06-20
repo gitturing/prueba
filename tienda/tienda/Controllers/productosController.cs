@@ -150,7 +150,7 @@ namespace tienda.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult VentasProductos([Bind(Include = "id_produto,nombre_producto,precio,producto_cantidad,descripcion_producto,id_provedor")] productos productos, int cantidad)
+        public ActionResult VentasProductos([Bind(Include = "id_produto,nombre_producto,precio,producto_cantidad,descripcion_producto,id_provedor")] productos productos, int Cantidad)
         {
             if (ModelState.IsValid)
             {
@@ -162,14 +162,16 @@ namespace tienda.Controllers
             return View(productos);
         }
         //metodo para optener el precio por productos
-        public ActionResult PrecioVentas(int id_producto, int cantidad)
+        [HttpPost]
+        public ActionResult PrecioVentas(int id_producto, int Cantidad)
         {
             var valor = (from produc in db.productos
                          where produc.id_produto == id_producto
                          select produc.precio).FirstOrDefault();
 
             int val = int.Parse(valor.ToString());
-            return Content((val * cantidad).ToString());
+            return Content((val * Cantidad).ToString());
+            
         }
 
     }
